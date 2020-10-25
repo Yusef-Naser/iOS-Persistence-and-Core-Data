@@ -18,3 +18,14 @@
         - The absolute paths for key folders in OSX, such as your home folder, don’t change every time you boot your Mac. On iOS, on the other hand, the absolute path for key folders will change.
     
 <img src="assets/ios_app_layout_2x.png" width="50%" />
+
+1- **Bundle Container**
+- The Bundle Container contains the application itself, or more specifically, a directory that holds the executable code and resources, like images and sound files or whatever else that code uses.
+2- **Data Container**
+- The Data Container, like its name might suggest, holds all the user and app data. Within it are three sub-containers:
+    - **Documents**
+        - Documents is where user data should go
+    - **Library**
+        - library is for non-user data files or files that you don’t want to expose to the user.
+    - **temp**
+        - Temp is used for storing temporary data that needs no persistence across launches.
