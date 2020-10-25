@@ -1,5 +1,7 @@
 # iOS Persistence and Core Data
 
+# [Udacity Course](https://classroom.udacity.com/courses/ud325)
+
 ##  **UserDefault**
 - UserDefaults is not a good fit for a note-taking app. Thousands of notes, images, and whatever else a user might store would be way too much information for UserDefaults to handle. Trying to store all this in UserDefaults would have negative performance implications. This will be a job for Core Data.
 ## **SandBox**
