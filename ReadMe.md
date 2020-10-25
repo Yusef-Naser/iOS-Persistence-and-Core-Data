@@ -16,3 +16,5 @@
     - *Differences* :
         - While the security (who can access which folders) on OSX is relatively lax, on iOS it is extremely strict.
         - The absolute paths for key folders in OSX, such as your home folder, don’t change every time you boot your Mac. On iOS, on the other hand, the absolute path for key folders will change.
+    
+<img src="assets/ios_app_layout_2x.png" width="50%" />
