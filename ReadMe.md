@@ -34,3 +34,9 @@
 - So the sandbox is where we may save information. Let’s look at those three sub-folders mentioned earlier. Documents, this is where you save important information. iTunes will make backups of this folder, and the OS will never delete its contents. Caches, this is for temporary info. iTunes and iCloud will never make a backup of its content. Library is for files you don’t want exposed to the user. The rule of thumb is, important stuff goes into Documents. Things that won’t be necessary in the future or easy to recreate should go into Caches.
 
 - To save something in the sandbox, we need to do two things. Find where the folder is within the sandbox and then write to a file within that folder. To achieve this, we can use the following classes: FileManager to get the path to the sandbox, and then String to write or read text files or Data to write or read by binary files.
+
+## **Core Data**
+- When we say that Core Data is a framework, we mean that it is a library—or bundle of code—that can be included in an app and used to perform specific tasks. In the case of the Core Data framework, those tasks are model creation and data layer management.
+- You can begin using Core Data in your apps before you even get close to adding persistence—and will find it easier to add persistence later if you do!
+- **Core Data != Persistence**
+    - Persistence is just one aspect of data layer management. But it is an important one!
