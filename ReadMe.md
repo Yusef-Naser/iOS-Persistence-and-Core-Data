@@ -21,6 +21,7 @@
 
 1- **Bundle Container**
 - The Bundle Container contains the application itself, or more specifically, a directory that holds the executable code and resources, like images and sound files or whatever else that code uses.
+
 2- **Data Container**
 - The Data Container, like its name might suggest, holds all the user and app data. Within it are three sub-containers:
     - **Documents**
