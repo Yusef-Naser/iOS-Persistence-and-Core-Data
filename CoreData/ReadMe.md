@@ -1,3 +1,6 @@
+
+[Ali Akhtar on medium](https://medium.com/@aliakhtar_16369/mastering-in-core-data-part-0-5a529c6c5a93)
+
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
 - Core Data saves (or persists) data into something called a persistent store (think storage). The store is where the data lives.
