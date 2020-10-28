@@ -1,5 +1,6 @@
 
 [Ali Akhtar on medium](https://medium.com/@aliakhtar_16369/mastering-in-core-data-part-0-5a529c6c5a93)
+[10 tips for core data](https://medium.com/ios-os-x-development/10-core-principles-to-use-coredata-without-blowing-your-head-off-5ed11c623c6b)
 
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
