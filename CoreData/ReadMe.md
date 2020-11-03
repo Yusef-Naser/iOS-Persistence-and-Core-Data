@@ -7,6 +7,10 @@
 
 [Configuring Attributes](https://developer.apple.com/documentation/coredata/modeling_data/configuring_attributes?language=objc)
 
+[Configuring Relationships](https://developer.apple.com/documentation/coredata/modeling_data/configuring_relationships)
+
+[Creating Managed Object Relationships](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/HowManagedObjectsarerelated.html#//apple_ref/doc/uid/TP40001857-185436%20//apple_ref/doc/uid/TP40001075-CH17-SW2)
+
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
 - Core Data saves (or persists) data into something called a persistent store (think storage). The store is where the data lives.
@@ -75,3 +79,14 @@
 
 ## Relationships
 - Relationships are also properties. Instead of storing values, they store a reference to another (or the same) Core Data record. Before we can add a relationship, we need to add another entity.
+
+- **Two-sided Relationships**
+    - You might be wondering why Core Data created a two-sided relationship between the entities, since in our Swift code, we only modeled the relationship in one direction.
+    - If you’ve worked with databases, you might even be wondering if it would be easier to just include an ID field instead of explicitly creating relationships.
+    - *Core Data uses two-sided relationships.*
+    - Think about what happens when a note or a notebook is deleted. When a note is deleted, we don’t want to make any changes to the other notes – and we certainly wouldn’t want to delete the whole notebook.
+    - But when a notebook is deleted, we’ll want to delete all of its notes. If we were using an ID field, there would be a lot of bookkeeping to make sure we deleted all the notes that referenced a deleted notebook.
+    - Core Data includes functionality to model deletion behavior. Modelling the relationship in both directions lets Core Data traverse the web of entity class instances (also known as the “object graph”) and make sure all affected references are updated. This is called referential integrity.
+- **Deletion Rules**
+    - For our notes relationship, choosing the `Cascade` rule will mean that deleting a Notebook will cause all of its referenced notes to be deleted.
+    - For our notebook relationship in Note, choosing `Nullify` means that the relationship will simply be removed, but the referenced Notebook remains.
