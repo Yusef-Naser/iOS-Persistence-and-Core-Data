@@ -60,5 +60,18 @@
 
 <img src="assets/add-title-attribute.jpg" width="50%" />
 
+**Attribute Types**
+- Core Data includes a number of built-in attribute types for numbers, booleans, strings and other types of data.
+- Many of these are stored internally as NSNumbers due to the Objective-C heritage of Core Data, but the generated Swift files for your entities will have properties with Swift Standard Library or Foundation types.
+    - `Integer 16`, `Integer 32`, and `Integer 64` types generate Int16, Int32, and Int64 properties respectively.
+    - The `Decimal` attribute type will create a corresponding NSDecimalNumber property.
+    - `Float` and `Double` will map to the Float and Double Swift equivalents.
+    - `String` also maps to its Swift counterpart. Bool will as well, although it is stored as number internally.
+    - `Date` becomes an NSDate (rather than the more modern Date type, unfortunately)
+    - The `UUID` attribute type will create a corresponding UUID-typed property
+    - The `URI` attribute type creates a corresponding URL-typed property
+    - The `Binary` attribute type allows you to store arbitrary data, and includes an option to store larger files separately on disk.
+    - `Transformable` is handy for storing classes that conform to NSCoding – it automatically converts such classes to and from a binary representation when storing them. Since many common Foundation classes conform to NSCoding, this allows you to easily store many Foundation types directly in Core Data.
+
 ## Relationships
 - Relationships are also properties. Instead of storing values, they store a reference to another (or the same) Core Data record. Before we can add a relationship, we need to add another entity.
