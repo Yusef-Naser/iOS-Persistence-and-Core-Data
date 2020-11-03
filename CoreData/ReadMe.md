@@ -5,6 +5,8 @@
 
 [core data codegen explained](https://medium.com/@kahseng.lee123/core-data-codegen-explained-462c30341041)
 
+[Configuring Attributes](https://developer.apple.com/documentation/coredata/modeling_data/configuring_attributes?language=objc)
+
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
 - Core Data saves (or persists) data into something called a persistent store (think storage). The store is where the data lives.
@@ -55,8 +57,6 @@
 - You can think of attributes as the columns of a table in a database. Attributes store the values of a Core Data record. There are several types of attributes, such as String, Date, Integer, Float, and Boolean.
 
 - Every attribute type has different configuration options in the *Attributes Inspector*. The *String* attribute type, for example, allows you to set a default value and to add validation rules. It goes without saying that attributes are much more than the columns of a table in a database.
-
-[Configuring Attributes](https://developer.apple.com/documentation/coredata/modeling_data/configuring_attributes?language=objc)
 
 <img src="assets/add-title-attribute.jpg" width="50%" />
 
