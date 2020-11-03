@@ -32,7 +32,7 @@
 ## What Are Core Data Properties?
 - The difference is between properties, attributes, and relationships in the context of Core Data. The difference is straightforward. Attributes and relationships are both properties. The term property is used to refer to both attributes and relationships.
 
->> Attributes and relationships are both properties.
+> Attributes and relationships are both properties.
 
 ## Attributes
 - You can think of attributes as the columns of a table in a database. Attributes store the values of a Core Data record. There are several types of attributes, such as String, Date, Integer, Float, and Boolean.
