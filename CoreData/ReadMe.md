@@ -25,3 +25,21 @@
 - **Abstracting the Store**
 - Core Data abstracts the persistent store's details. That means you won’t usually interact with the store directly. You can think of Core Data as a layer that sits between your code and the underlying store, making it easier for the two to communicate.
 - Core Data provides a common interface for saving and fetching data, no matter what kind of store sits below. Whatever type of store you choose, you’ll always use the same Core Data classes to access and manage your data. And you won't need to learn a database-specific language to manage your data; you can do it all in Swift.
+
+## Entities
+- An entity is represented by an instance of the `NSEntityDescription` class. This class provides access to a wide range of properties, such as its name, the data model it is defined in, and the name of the class the entity is represented by. In short, the `NSEntityDescription` class gives you access to every bit of information Core Data has about an entity. This brings us to properties.
+
+## What Are Core Data Properties?
+- The difference is between properties, attributes, and relationships in the context of Core Data. The difference is straightforward. Attributes and relationships are both properties. The term property is used to refer to both attributes and relationships.
+
+>> Attributes and relationships are both properties.
+
+## Attributes
+- You can think of attributes as the columns of a table in a database. Attributes store the values of a Core Data record. There are several types of attributes, such as String, Date, Integer, Float, and Boolean.
+
+- Every attribute type has different configuration options in the *Attributes Inspector*. The *String* attribute type, for example, allows you to set a default value and to add validation rules. It goes without saying that attributes are much more than the columns of a table in a database.
+
+<img src="assets/add-title-attribute.jpg" width="50%" />
+
+## Relationships
+- Relationships are also properties. Instead of storing values, they store a reference to another (or the same) Core Data record. Before we can add a relationship, we need to add another entity.
