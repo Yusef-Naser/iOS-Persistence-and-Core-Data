@@ -56,6 +56,8 @@
 
 - Every attribute type has different configuration options in the *Attributes Inspector*. The *String* attribute type, for example, allows you to set a default value and to add validation rules. It goes without saying that attributes are much more than the columns of a table in a database.
 
+[Configuring Attributes](https://developer.apple.com/documentation/coredata/modeling_data/configuring_attributes?language=objc)
+
 <img src="assets/add-title-attribute.jpg" width="50%" />
 
 ## Relationships
