@@ -11,6 +11,10 @@
 
 [Creating Managed Object Relationships](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/HowManagedObjectsarerelated.html#//apple_ref/doc/uid/TP40001857-185436%20//apple_ref/doc/uid/TP40001075-CH17-SW2)
 
+[Apple Documentation](https://developer.apple.com/documentation/coredata)
+
+[raywenderlich](https://www.raywenderlich.com/books/core-data-by-tutorials/v7.0/chapters/i-what-you-need)
+
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
 - Core Data saves (or persists) data into something called a persistent store (think storage). The store is where the data lives.
@@ -90,3 +94,10 @@
 - **Deletion Rules**
     - For our notes relationship, choosing the `Cascade` rule will mean that deleting a Notebook will cause all of its referenced notes to be deleted.
     - For our notebook relationship in Note, choosing `Nullify` means that the relationship will simply be removed, but the referenced Notebook remains.
+
+## Core Data Stack
+1- Managed Object Context
+2- Managed Object Model
+3- Persistent Store Coordinator
+4- Persistent Container
+
