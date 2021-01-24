@@ -15,6 +15,8 @@
 
 [raywenderlich](https://www.raywenderlich.com/books/core-data-by-tutorials/v7.0/chapters/i-what-you-need)
 
+[Apple Core Data](https://developer.apple.com/library/archive/documentation/DataManagement/Devpedia-CoreData/Introduction.html#//apple_ref/doc/uid/TP40010398-CH33-DontLinkElementID_2)
+
 ## How Does Core Data Save Data?
 -  **Persistent Stores**
 - Core Data saves (or persists) data into something called a persistent store (think storage). The store is where the data lives.
@@ -97,7 +99,35 @@
 
 ## Core Data Stack
 1- Managed Object Context
-2- Managed Object Model
-3- Persistent Store Coordinator
-4- Persistent Container
+- A managed object context represents a single object space, or scratch pad, in a Core Data application. A managed object context is an instance of NSManagedObjectContext. Its primary responsibility is to manage a collection of managed objects. These managed objects represent an internally consistent view of one or more persistent stores. The context is a powerful object with a central role in the life-cycle of managed objects, with responsibilities from life-cycle management (including faulting) to validation, inverse relationship handling, and undo/redo.
 
+- From your perspective, the context is the central object in the Core Data stack. It’s the object you use to create and fetch managed objects, and to manage undo and redo operations. Within a given context, there is at most one managed object to represent any given record in a persistent store.
+
+- A context is connected to a parent object store. This is usually a persistent store coordinator, but may be another managed object context. When you fetch objects, the context asks its parent object store to return those objects that match the fetch request.` Changes that you make to managed objects are not committed to the parent store until you save the context and doesn't update the UI`. In some applications, you may have just a single context. In others, however, you might have more than one. You might want to maintain discrete sets of managed objects and edits to those objects; or you might want to perform a background operation using one context while allowing the user to interact with objects in another.
+
+- A managed object context is an in-memory scratchpad for working with your managed objects. Most apps need just a single managed object context. The default configuration in most Core Data apps is a single managed object context associated with the main queue. Multiple managed object contexts make your apps harder to debug; it’s not something you’d use in every app, in every situation.
+
+- That being said, certain situations do warrant the use of more than one managed object context. For example, long-running tasks, such as exporting data, will block the main thread of apps that use only a single main-queue managed object context and cause the UI to stutter.
+
+- In other situations, such as when edits are being made to user data, it’s helpful to treat a managed object context as a set of changes that the app can discard if it no longer needs them. Using child contexts makes this possible.
+
+### Treat with multiple managed object context [raywenderlich](https://www.raywenderlich.com/7586-multiple-managed-object-contexts-with-core-data-tutorial)
+
+
+2- Managed Object Model
+- A managed object model is a set of objects that together form a blueprint describing the managed objects you use in your application. A model allows Core Data to map from records in a persistent store to managed objects that you use in your application. It is a collection of entity description objects (instances of NSEntityDescription). An entity description describes an entity `(which you can think of as a table in a database) in terms of its name, the name of the class used to represent the entity in your application, and what properties (attributes and relationships) it has.`
+
+- The managed object model is an instance of NSManagedObjectModel and describes the schema used in your Core Data application. It is loaded from the model file which contains all the entity descriptions with their attributes and relationships that you defined in the Core Data Model inspector. So the model describes your objects.
+
+3- Persistent Store Coordinator
+- The persistent store coordinator uses both: The NSManagedObjectModel and (one or more) NSPersistentStores, to load managed objects from the store into the application and to write changed objects back into the store.
+- it translate store records (Managed object model) into managed objects  and Managed objects into Records.
+
+4- Persistent Container
+- A Core Data model defines what your data should look like, but it doesn't actually store the real data anywhere. To make our app work, we need to load that model, create a real working database from it, load that database, then prepare what’s called a “managed object context” – an environment where we can create, read, update, and delete Core Data objects entirely in memory, before writing back to the database in one lump.
+
+
+- This all used to be a massive amount of work, to the point where it would put people off Core Data for life. But from iOS 10 onwards, Apple rolled all this work up into a single new class called NSPersistentContainer. This has removed almost all the tedium from setting up Core Data, and you can now get up and running in just a few lines of code.
+
+
+### The persistent object store is an instance of NSPersistentStore, which manages the transactions to and from a persistent store, which is the repository where the actual data is stored. In many cases, the persistent store is a SQLite file, but it can also be an XML file, a binary file or a "in-memory" store for temporary data.
