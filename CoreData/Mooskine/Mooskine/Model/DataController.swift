@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class DataController {
+class DataController { 
     
     let persistanceContainer : NSPersistentContainer
     
@@ -17,8 +17,19 @@ class DataController {
         persistanceContainer.viewContext
     }
     
+    var backgroundContext : NSManagedObjectContext!
+    
     init(modelName : String) {
         persistanceContainer = NSPersistentContainer(name: modelName)
+    }
+    
+    func configureContexts () {
+        backgroundContext = persistanceContainer.newBackgroundContext()
+        viewContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
     }
     
     func load(completion : ( ()->Void )? = nil ) {
@@ -27,6 +38,7 @@ class DataController {
                 return
             }
             self.autoSaveViewContext(interval: 3)
+            self.configureContexts()
             completion?()
         }
     }

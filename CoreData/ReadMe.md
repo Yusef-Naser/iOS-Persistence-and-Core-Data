@@ -131,3 +131,63 @@
 
 
 ### The persistent object store is an instance of NSPersistentStore, which manages the transactions to and from a persistent store, which is the repository where the actual data is stored. In many cases, the persistent store is a SQLite file, but it can also be an XML file, a binary file or a "in-memory" store for temporary data.
+
+# [NSFetchedResultController](https://developer.apple.com/documentation/coredata/nsfetchedresultscontroller)
+- extension of controller
+```swift
+extension NotebooksListViewController : NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        let indexSet = IndexSet(integer: sectionIndex)
+        switch type {
+        case .insert: tableView.insertSections(indexSet, with: .fade)
+        case .delete: tableView.deleteSections(indexSet, with: .fade)
+        case .update, .move:
+            fatalError("Invalid change type in controller(_:didChange:atSectionIndex:for:). Only .insert or .delete should be possible.")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+            break
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            break
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        }
+    }
+    
+}
+```
+# Data Type **Binary Data** and **Transformable**
+## **Binary Data**
+- You can store audio, image as NSData 
+- you are responsable for convert from/to it yourself.
+- use Binart Data for small size of files - smaller than a megabyte
+- if file is greater than 1 MB **Apple advise that we store the image file in the File system (eg: the app's /Documents directory) and store the image URL (eg: /Documents/asriel.png) in the Core Data attributes instead.**
+-  According to [Apple's Core Data Documentation](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Performance.html#//apple_ref/doc/uid/TP40001075-CH25-SW11):
+> If your application uses Binary Large OBjects (BLOBs) such as image and sound data, you need to take care to minimize overheads. Whether an object is considered small or large depends on an 
+> application’s usage. A general rule is that objects smaller than a megabyte are small or medium-sized and those larger than a megabyte are large.
+> It is better, however, if you are able to store BLOBs as resources on the file system and to maintain links (such as URLs or paths) to those resources. You can then load a BLOB as and when necessary.
+
+- Apple has provided us the feature `Allows External Storage`. To enable this feature, open the core data model, select your binary data attribute, then check the box 'Allows External Storage in the right side.
+- What this checkbox does is as described below from Apple's documentation:
+> Small data values like image thumbnails may be efficiently stored in a database, but large photos or other media are best handled directly by the file system. You can now specify that the value of a managed
+> object attribute may be stored as an external record—see setAllowsExternalBinaryDataStorage:. When enabled, Core Data heuristically decides on a per-value basis if it should save the data directly in the
+> database or store a URI to a separate file which it manages for you. You cannot query based on the contents of a binary data property if you use this option.
+- In short, after checking this box, CoreData will automatically decide when it will save the image binary data directly to the column, or save the image in the file system and save the path to the image to the column. The decision is largely based on the size of the binary data (if it is quite small, then it will be saved into the column directly).
+- After checking the box, large image file will be stored separately, and the column stores binary data that reference the path to the image.

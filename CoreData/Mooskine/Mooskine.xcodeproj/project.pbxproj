@@ -21,6 +21,9 @@
 		2C43B73B25A1204E00A41A3F /* Notebook+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43B73A25A1204E00A41A3F /* Notebook+Extenstions.swift */; };
 		2C43B73D25A120B900A41A3F /* Note+Extenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C43B73C25A120B900A41A3F /* Note+Extenstions.swift */; };
 		2C459C302548F6C700ACCBBA /* Mooskine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C459C2E2548F6C700ACCBBA /* Mooskine.xcdatamodeld */; };
+		2C4D7F7825C2FEF80077988B /* UpdateToAttributedStrings.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D7F7725C2FEF80077988B /* UpdateToAttributedStrings.xcmappingmodel */; };
+		2C4D7F7A25C2FF630077988B /* UpdateToAttributedStringsPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D7F7925C2FF630077988B /* UpdateToAttributedStringsPolicy.swift */; };
+		2C4D7F7C25C303EA0077988B /* Pathifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4D7F7B25C303EA0077988B /* Pathifier.swift */; };
 		2C511C62259AF6FF0083696A /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C511C61259AF6FF0083696A /* DataController.swift */; };
 		A76557E71F8BC1FB00EFF9B8 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A76557E51F8BC1AC00EFF9B8 /* OpenSans-Bold.ttf */; };
 		A76557E81F8BC1FB00EFF9B8 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A76557E61F8BC1AC00EFF9B8 /* OpenSans-Regular.ttf */; };
@@ -56,6 +59,10 @@
 		2C43B73A25A1204E00A41A3F /* Notebook+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+Extenstions.swift"; sourceTree = "<group>"; };
 		2C43B73C25A120B900A41A3F /* Note+Extenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Extenstions.swift"; sourceTree = "<group>"; };
 		2C459C2F2548F6C700ACCBBA /* Mooskine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mooskine.xcdatamodel; sourceTree = "<group>"; };
+		2C4D7F7625C2FD190077988B /* Mooskine-2021-28-1-attributedString.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Mooskine-2021-28-1-attributedString.xcdatamodel"; sourceTree = "<group>"; };
+		2C4D7F7725C2FEF80077988B /* UpdateToAttributedStrings.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = UpdateToAttributedStrings.xcmappingmodel; sourceTree = "<group>"; };
+		2C4D7F7925C2FF630077988B /* UpdateToAttributedStringsPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToAttributedStringsPolicy.swift; sourceTree = "<group>"; };
+		2C4D7F7B25C303EA0077988B /* Pathifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pathifier.swift; sourceTree = "<group>"; };
 		2C511C61259AF6FF0083696A /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A76557E41F8BC1AC00EFF9B8 /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		A76557E51F8BC1AC00EFF9B8 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -147,6 +154,9 @@
 				2C43B73925A1203600A41A3F /* Managed object extensions */,
 				2C459C2E2548F6C700ACCBBA /* Mooskine.xcdatamodeld */,
 				2C511C61259AF6FF0083696A /* DataController.swift */,
+				2C4D7F7725C2FEF80077988B /* UpdateToAttributedStrings.xcmappingmodel */,
+				2C4D7F7925C2FF630077988B /* UpdateToAttributedStringsPolicy.swift */,
+				2C4D7F7B25C303EA0077988B /* Pathifier.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,12 +318,15 @@
 			files = (
 				039B105C1EDC5469002EA94F /* AppDelegate.swift in Sources */,
 				03B2699E1F2F8AAA00C7433C /* NotebookCell.swift in Sources */,
+				2C4D7F7825C2FEF80077988B /* UpdateToAttributedStrings.xcmappingmodel in Sources */,
 				2C459C302548F6C700ACCBBA /* Mooskine.xcdatamodeld in Sources */,
 				03B2699B1F2F8AA100C7433C /* NotebooksListViewController.swift in Sources */,
 				2C511C62259AF6FF0083696A /* DataController.swift in Sources */,
 				03B2699C1F2F8AA100C7433C /* NoteDetailsViewController.swift in Sources */,
 				03B269A01F2F8AAD00C7433C /* Cell.swift in Sources */,
+				2C4D7F7C25C303EA0077988B /* Pathifier.swift in Sources */,
 				2C43B73B25A1204E00A41A3F /* Notebook+Extenstions.swift in Sources */,
+				2C4D7F7A25C2FF630077988B /* UpdateToAttributedStringsPolicy.swift in Sources */,
 				03B2699D1F2F8AA100C7433C /* NotesListViewController.swift in Sources */,
 				03B2699F1F2F8AAA00C7433C /* NoteCell.swift in Sources */,
 				2C43B73D25A120B900A41A3F /* Note+Extenstions.swift in Sources */,
@@ -565,9 +578,10 @@
 		2C459C2E2548F6C700ACCBBA /* Mooskine.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2C4D7F7625C2FD190077988B /* Mooskine-2021-28-1-attributedString.xcdatamodel */,
 				2C459C2F2548F6C700ACCBBA /* Mooskine.xcdatamodel */,
 			);
-			currentVersion = 2C459C2F2548F6C700ACCBBA /* Mooskine.xcdatamodel */;
+			currentVersion = 2C4D7F7625C2FD190077988B /* Mooskine-2021-28-1-attributedString.xcdatamodel */;
 			path = Mooskine.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

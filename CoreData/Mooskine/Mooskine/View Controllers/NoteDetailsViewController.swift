@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NoteDetailsViewController: UIViewController {
     /// A text view that displays a note's text
@@ -20,6 +21,10 @@ class NoteDetailsViewController: UIViewController {
     /// A closure that is run when the user asks to delete the current note
     var onDelete: (() -> Void)?
 
+    var keyboardToolbar: UIToolbar?
+    
+    var saveObserverToken : Any?
+    
     /// A date formatter for the view controller's title text
     let dateFormatter: DateFormatter = {
         let df = DateFormatter()
@@ -34,7 +39,17 @@ class NoteDetailsViewController: UIViewController {
             navigationItem.title = dateFormatter.string(from: creationDate  )
         }
         
-        textView.text = note.text
+        textView.attributedText = note.attributedText
+        
+        configureToolbarItems()
+        configureTextViewInputAccessoryView()
+        
+        addSaveNotificationObserver()
+        
+    }
+    
+    deinit {
+        removeSaveNotificationObserver()
     }
 
     @IBAction func deleteNote(sender: Any) {
@@ -63,7 +78,136 @@ extension NoteDetailsViewController {
 
 extension NoteDetailsViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
-        note.text = textView.text
+        note.attributedText = textView.attributedText
         try? dataController.viewContext.save()
+    }
+}
+
+extension NoteDetailsViewController {
+    /// Returns an array of toolbar items. Used to configure the view controller's
+    /// `toolbarItems' property, and to configure an accessory view for the
+    /// text view's keyboard that also displays these items.
+    func makeToolbarItems() -> [UIBarButtonItem] {
+        let trash = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteTapped(sender:)))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        let bold = UIBarButtonItem(image: #imageLiteral(resourceName: "toolbar-bold"), style: .plain , target: self , action: #selector(boldTapped))
+        let red = UIBarButtonItem(image: #imageLiteral(resourceName: "toolbar-underline"), style: .plain , target: self , action: #selector(redTapped))
+        let cow = UIBarButtonItem(image: #imageLiteral(resourceName: "toolbar-cow"), style: .plain , target: self , action: #selector(cowTapped))
+        return [trash, space, bold , red, space , cow , space]
+    }
+
+    
+    
+    /// Configure the current toolbar
+    func configureToolbarItems() {
+        toolbarItems = makeToolbarItems()
+        navigationController?.setToolbarHidden(false, animated: false)
+        }
+
+    /// Configure the text view's input accessory view -- this is the view that
+    /// appears above the keyboard. We'll return a toolbar populated with our
+    /// view controller's toolbar items, so that the toolbar functionality isn't
+    /// hidden when the keyboard appears
+    func configureTextViewInputAccessoryView() {
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
+        toolbar.items = makeToolbarItems()
+        textView.inputAccessoryView = toolbar
+    }
+
+    @IBAction func deleteTapped(sender: Any) {
+        showDeleteAlert()
+    }
+
+    @objc private func boldTapped () {
+        let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
+        newText.addAttribute(.font , value: UIFont(name: "OpenSans-Bold", size: 22)!, range: textView.selectedRange)
+        let selectedTextRange = textView.selectedTextRange
+        textView.attributedText = newText
+        textView.selectedTextRange = selectedTextRange
+        note.attributedText = textView.attributedText
+        try? dataController.viewContext.save()
+    }
+    @objc private func redTapped () {
+        let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
+        let attribute : [NSAttributedString.Key : Any] = [
+            .foregroundColor : UIColor.red ,
+            .underlineStyle : 1 ,
+            .underlineColor : UIColor.red
+        ]
+        newText.addAttributes(attribute , range: textView.selectedRange)
+        
+        let selectedTextRange = textView.selectedTextRange
+        textView.attributedText = newText
+        textView.selectedTextRange = selectedTextRange
+        note.attributedText = textView.attributedText
+        try? dataController.viewContext.save()
+    }
+    @objc private func cowTapped () {
+        
+        let backgroundContext = dataController.backgroundContext
+        
+        let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
+        
+        let selectedRange = textView.selectedRange
+        let selectedText = textView.attributedText.attributedSubstring(from: selectedRange)
+        
+        let noteID = note.objectID
+        
+        backgroundContext?.perform {
+            let backgroundNote = backgroundContext?.object(with: noteID) as! Note
+            
+            let cowText = Pathifier.makeMutableAttributedString(for: selectedText , withFont: UIFont(name: "OpenSans-Bold", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
+            
+            newText.replaceCharacters(in: selectedRange , with: cowText)
+            sleep(5)
+            backgroundNote.attributedText = newText
+            try? backgroundContext?.save()
+        }
+        
+        
+        
+        //textView.attributedText = newText
+        //textView.selectedRange = NSMakeRange(selectedRange.location, 1)
+        
+    }
+    // MARK: Helper methods for actions
+    private func showDeleteAlert() {
+        let alert = UIAlertController(title: "Delete Note?", message: "Are you sure you want to delete the current note?", preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.onDelete?()
+        }
+
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+extension NoteDetailsViewController {
+    
+    func addSaveNotificationObserver() {
+        removeSaveNotificationObserver()
+        saveObserverToken = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange , object: dataController.viewContext , queue: nil , using: handleSaveNotification(notification :))
+    }
+    func removeSaveNotificationObserver() {
+        if let token = saveObserverToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
+    func reloadText () {
+        textView.attributedText = note.attributedText
+    }
+    
+    func handleSaveNotification (notification : Notification ) {
+        
+        DispatchQueue.main.async {
+            self.reloadText()
+        }
+        
     }
 }
