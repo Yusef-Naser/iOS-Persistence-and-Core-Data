@@ -177,7 +177,7 @@ extension NotebooksListViewController : NSFetchedResultsControllerDelegate {
 ## **Binary Data**
 - You can store audio, image as NSData 
 - you are responsable for convert from/to it yourself.
-- use Binart Data for small size of files - smaller than a megabyte
+- use Binary Data for small size of files - smaller than a megabyte
 - if file is greater than 1 MB **Apple advise that we store the image file in the File system (eg: the app's /Documents directory) and store the image URL (eg: /Documents/asriel.png) in the Core Data attributes instead.**
 -  According to [Apple's Core Data Documentation](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Performance.html#//apple_ref/doc/uid/TP40001075-CH25-SW11):
 > If your application uses Binary Large OBjects (BLOBs) such as image and sound data, you need to take care to minimize overheads. Whether an object is considered small or large depends on an 
@@ -191,3 +191,13 @@ extension NotebooksListViewController : NSFetchedResultsControllerDelegate {
 > database or store a URI to a separate file which it manages for you. You cannot query based on the contents of a binary data property if you use this option.
 - In short, after checking this box, CoreData will automatically decide when it will save the image binary data directly to the column, or save the image in the file system and save the path to the image to the column. The decision is largely based on the size of the binary data (if it is quite small, then it will be saved into the column directly).
 - After checking the box, large image file will be stored separately, and the column stores binary data that reference the path to the image.
+
+## **Transformable**
+- You can change the attribute type to `Transformable`  to save custome data type to CoreData
+- When you declare a property as Transformable Core Data converts your custom data type into binary Data when it is saved to the persistent store and converts it back to your custom data type when fetched from the store. It does this through a value transformer.
+- in inspector in the right side you see **custome class** to add you data type class, after rebuild the project you now use you data type for this attribute
+- [NSSecureCoding and transformable](https://www.kairadiagne.com/2020/01/13/nssecurecoding-and-transformable-properties-in-core-data.html)
+- [CoreData Transformable and NSSecureCoding in iOS 13+](https://danielbernal.co/coredata-transformable-and-nssecurecoding-in-ios-13/)
+- [Handling Different Data Types in Core Data](https://developer.apple.com/documentation/coredata/handling_different_data_types_in_core_data)
+
+# Migration
