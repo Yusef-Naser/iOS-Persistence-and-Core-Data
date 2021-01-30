@@ -201,3 +201,10 @@ extension NotebooksListViewController : NSFetchedResultsControllerDelegate {
 - [Handling Different Data Types in Core Data](https://developer.apple.com/documentation/coredata/handling_different_data_types_in_core_data)
 
 # Migration
+- [STEP-BY-STEP CORE DATA MIGRATION](https://williamboles.me/step-by-step-core-data-migration/)
+- [Lightweight Migrations in Core Data Tutorial](https://www.raywenderlich.com/7585-lightweight-migrations-in-core-data-tutorial#:~:text=To%20start%20the%20migration%20process,store%20in%20the%20new%20store.)
+
+# Concurrency
+- [Apple Doc](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CoreData/Concurrency.html)
+- [Best-practice-Core-Data-Concurrency](https://uynguyen.github.io/2019/09/01/Best-practice-Core-Data-Concurrency/)
+-[multithreading-concurrency](https://medium.com/@aliakhtar_16369/mastering-in-coredata-part-11-multithreading-concurrency-rules-70f1f221dbcd)
